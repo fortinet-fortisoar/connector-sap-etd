@@ -1,0 +1,253 @@
+{
+  "name": "sap-etd",
+  "label": "SAP Enterprise Threat Detection",
+  "description": "SAP Enterprise Threat Detection (ETD) helps you to identify the real attacks as they are happening and analyze the threats quickly enough to neutralize them before serious damage occurs. SAP Enterprise Threat Detection connector performs action like get alerts.",
+  "publisher": "Fortinet",
+  "cs_approved": true,
+  "cs_compatible": true,
+  "version": "1.1.0",
+  "category": "Threat Detection",
+  "icon_small_name": "small.png",
+  "icon_large_name": "medium.png",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/sap-enterprise-threat-detection/441/sap-enterprise-threat-detection-v1-1-0",
+  "ingestion_supported": true,
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "configuration": {
+    "fields": [
+      {
+        "title": "Server Address",
+        "name": "server",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "description": "The hostname of the SAP Enterprise Threat Detection server to which you will connect and perform automated operations to which you will connect and perform the automated operations. "
+      },
+      {
+        "title": "Username",
+        "name": "user",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "text",
+        "description": "Username to access the SAP Enterprise Threat Detection endpoint to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "Password",
+        "name": "password",
+        "required": true,
+        "editable": true,
+        "visible": true,
+        "type": "password",
+        "description": "Password to access the SAP Enterprise Threat Detection endpoint to which you will connect and perform the automated operations."
+      },
+      {
+        "title": "Port",
+        "required": false,
+        "editable": true,
+        "visible": true,
+        "type": "integer",
+        "name": "port",
+        "value": 443,
+        "description": "Port number used to access the SAP Enterprise Threat Detection server to which you will connect and perform the automated operations. By default, this is set to 443."
+      },
+      {
+        "title": "Verify SSL",
+        "name": "verify_ssl",
+        "required": false,
+        "visible": true,
+        "editable": true,
+        "type": "checkbox",
+        "value": true,
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not."
+      }
+    ]
+  },
+  "operations": [
+    {
+      "operation": "get_alert",
+      "title": "Get Alerts",
+      "description": "Retrieves alerts from SAP Enterprise Threat Detection in the JSON or LEEF format based on input parameters that you have specified.",
+      "category": "investigation",
+      "annotation": "get_alert",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "Query",
+          "name": "$query",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "placeholder": "AlertId eq 20 and AlertCreationTimestamp ge 2015-11-22T22:00:00.00Z",
+          "tooltip": "Possible parameters \"AlertId\", \"AlertCreationTimestamp\" which can also be combined by \"and\".",
+          "description": "The query using which you want to retrieve alerts from SAP Enterprise Threat Detection. You can use the following parameters in this query: AlertId, which is a unique and increasing integer number, and AlertCreationTimestamp, which is the timestamp in the UTC format. You can use the following operators in the query: \"eq\", \"lt\", \"gt\", \"ge\", or \"le\". The AlertId and AlertCreationTimestamp parameters can be combined using \"and\". For example, AlertId eq 20 and AlertCreationTimestamp ge 2015-11-22T22:00:00.00Z"
+        },
+        {
+          "title": "Response Format",
+          "name": "$format",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "select",
+          "options": [
+            "JSON",
+            "LEEF"
+          ],
+          "value": "JSON",
+          "tooltip": "Format of alerts",
+          "description": "Select the format in which you want to want this operation to return the format. You can choose between JSON or LEEF."
+        },
+        {
+          "title": "Limit",
+          "name": "$batchSize",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "integer",
+          "tooltip": "The maximum number of results, per page. Default batch size is 50",
+          "description": "The maximum number of results, per page, that this operation should return. By default, the default batch size is 50."
+        },
+        {
+          "title": "Pattern Filter",
+          "name": "$patternFilter",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "text",
+          "tooltip": "ID of a pattern filter",
+          "description": "The ID of a pattern filter using which you want to retrieve alerts from SAP Enterprise Threat Detection. A pattern filter is a set of patterns for which alerts are pulled from SAP Enterprise Threat Detection. You can define a pattern filter on the Settings user interface accessed from the launchpad of SAP Enterprise Threat Detection."
+        },
+        {
+          "title": "Include Events",
+          "name": "$includeEvents",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "checkbox",
+          "value": false,
+          "tooltip": "Select this option to include the triggering events in the operation's response. False: Exclude events, True: Included events",
+          "description": "Select this option to include the triggering events in the operation's response. By default, it is cleared, i.e., triggering events are excluded from the operation's response."
+        },
+        {
+          "title": "Include TestAlerts",
+          "name": "$includeTestAlerts",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "checkbox",
+          "tooltip": "Defines whether alerts with status Test Result are included. False: Exclude alerts, True: Included alerts",
+          "description": "Select this option (default) to include alerts whose status is set as \"TestResult\" in the operation's response."
+        },
+        {
+          "title": "Auto Confirm",
+          "name": "$autoConfirm",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "checkbox",
+          "tooltip": "Select this option to confirm the successful retrieval of alerts from SAP Enterprise Threat Detection by changing the status of the alert Forwarded",
+          "description": "Select this option to confirm the successful retrieval of alerts from SAP Enterprise Threat Detection by changing the status of the alert Forwarded. \nNote: The status of alerts whose status is set as \"Forwarded\" cannot be changed any further."
+        }
+      ],
+      "output_schema": [
+        {
+          "Version": "",
+          "AlertCreationTimestamp": "",
+          "AlertId": "",
+          "AlertSeverity": "",
+          "AlertStatus": "",
+          "AlertSource": {
+            "NetworkIPAddressInitiator": "",
+            "ServiceFunctionName": "",
+            "ServiceRequestLine": "",
+            "SystemIdActor": ""
+          },
+          "AlertSystemIds": [],
+          "HostNames": [],
+          "Category": "",
+          "PatternId": "",
+          "PatternType": "",
+          "PatternName": "",
+          "PatternNameSpace": "",
+          "PatternDescription": "",
+          "MinTimestamp": "",
+          "MaxTimestamp": "",
+          "Text": "",
+          "Score": "",
+          "UiLink": "",
+          "TriggeringEvents": [
+            {
+              "Id": "",
+              "Timestamp": "",
+              "TechnicalLogEntryType": "",
+              "TechnicalNumber": "",
+              "TechnicalTimestampOfInsertion": "",
+              "CorrelationId": "",
+              "CorrelationSubId": "",
+              "EventCode": "",
+              "EventSemantic": "",
+              "EventLogType": "",
+              "EventSourceId": "",
+              "EventSourceType": "",
+              "GenericOrder": "",
+              "GenericScore": "",
+              "GenericSessionId": "",
+              "NetworkHostnameActor": "",
+              "NetworkHostnameInitiator": "",
+              "NetworkIPAddressInitiator": "",
+              "NetworkPortActor": "",
+              "NetworkPortInitiator": "",
+              "NetworkPortIntermediary": "",
+              "NetworkPortReporter": "",
+              "NetworkPortTarget": "",
+              "NetworkPortBeforeNATInitiator": "",
+              "NetworkPortBeforeNATTarget": "",
+              "ParameterValueNumber": "",
+              "ParameterValueNumberContext": "",
+              "ParameterValueNumberPriorValue": "",
+              "ParameterValueDouble": "",
+              "ParameterValueDoublePriorValue": "",
+              "ResourceCount": "",
+              "ResourceRequestSize": "",
+              "ResourceResponseSize": "",
+              "ResourceSize": "",
+              "ResourceType": "",
+              "ResourceSumOverTime": "",
+              "ResourceUnitsOfMeasure": "",
+              "ServiceType": "",
+              "ServiceInstanceName": "",
+              "ServiceProgramName": "",
+              "SystemIdActor": "",
+              "SystemGroupIdActor": "",
+              "SystemGroupIdInitiator": "",
+              "SystemGroupIdIntermediary": "",
+              "SystemIdReporter": "",
+              "SystemGroupIdReporter": "",
+              "SystemGroupIdTarget": "",
+              "SystemTypeActor": "",
+              "SystemGroupTypeActor": "",
+              "SystemGroupTypeInitiator": "",
+              "SystemGroupTypeIntermediary": "",
+              "SystemTypeReporter": "",
+              "SystemGroupTypeReporter": "",
+              "SystemGroupTypeTarget": "",
+              "TimeDuration": "",
+              "TimestampOfEnd": "",
+              "TimestampOfStart": "",
+              "UsernameDomainNameActing": "",
+              "UsernameDomainTypeActing": "",
+              "UserPseudonymActing": "",
+              "EventName": "",
+              "EventNamespace": "",
+              "TechnicalTimestampInteger": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
